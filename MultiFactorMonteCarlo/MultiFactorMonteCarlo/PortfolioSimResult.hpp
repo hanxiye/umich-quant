@@ -15,12 +15,20 @@
 class PortfolioSimResult{
 public:
     PortfolioSimResult(const std::vector<double>& profits);
+    PortfolioSimResult();
+    PortfolioSimResult(const std::vector<PortfolioSimResult>& positionResults);
     
-    double var(double confidence);
-    double expectedShortfall(double confidence);
+    double var(double quantile) const;
+    double expectedShortfall(double quantile) const;
+    std::vector<int> varEvents(double quantile) const;
+    double averagePnLonEvents(std::vector<int> portfolioVarEvents) const;
+    void push_back(const double profit);
+    size_t numResults() const;
     
 private:
     std::vector<double> m_profits;
+    
+    void validateQuantile(double quantile) const;
 };
 
 #endif /* PortfolioSimResult_hpp */

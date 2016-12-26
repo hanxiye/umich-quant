@@ -12,6 +12,7 @@
 
 #include "Position.hpp"
 #include "MarketSimulation.hpp"
+#include "PortfolioSimResult.hpp"
 #include <vector>
 
 class Portfolio {
@@ -19,7 +20,9 @@ public:
     void addPosition(std::shared_ptr<Security>, double positionSize);
     double value(const MarketScenario&) const;
     double value(const MarketScenario&, const MarketSimulation&) const;
-    std::vector<double> profits(const MarketScenario&,int numOfHistoricalReturns, size_t numOfSims) const;
+    std::vector<double> profits(const MarketScenario&,int numOfHistoricalReturns, size_t numOfSims, double ewmaLambda) const;
+    
+    std::vector<PortfolioSimResult> simResultsByPosition(const MarketScenario&,int numOfHistoricalReturns, size_t numOfSims, double ewmaLambda) const;
 
 private:
     std::vector< std::shared_ptr<Position> > m_positions;
